@@ -48,7 +48,7 @@ return [
         ],
     ],
 
-    'default_guard_name' => null,
+    'default_guard_name' => 'web',
 
     'model_filter_key' => 'return \'%\'.$value;', // Eg: 'return \'%\'.$key.'\%\';'
 
@@ -109,7 +109,7 @@ return [
          *
          * Note: If you are changing the "permission_name" , It's recommended to run with --clean to avoid duplications
          */
-        'permission_name' => 'return $permissionAffix . \' \' . $modelName;',
+        'permission_name' => 'return $modelName . \'.\' . $permissionAffix;',
 
         /*
          * Permissions will be generated for the models associated with the respective Filament Resources

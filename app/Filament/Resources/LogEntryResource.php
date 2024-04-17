@@ -20,6 +20,8 @@ class LogEntryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+	protected static ?string $recordTitleAttribute = 'logs';
+
     public static function canCreate(): bool
     {
         return false;
