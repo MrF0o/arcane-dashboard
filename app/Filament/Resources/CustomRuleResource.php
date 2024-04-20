@@ -19,9 +19,12 @@ class CustomRuleResource extends Resource
 	protected static ?string $model = CustomRule::class;
 
 	protected static ?string $navigationIcon = 'heroicon-o-no-symbol';
+	protected static ?string $recordTitleAttribute = 'custom rule';
 
 	private static array $fields = [
-		"Request" => ['REQUEST_BODY' => 'Request Body']
+		"Request" => [
+			'REQUEST_BODY' => 'Request Body'
+		]
 	];
 
 	public static function form(Form $form): Form
@@ -105,6 +108,13 @@ class CustomRuleResource extends Resource
 				Tables\Columns\IconColumn::make('is_chained')
 					->boolean(),
 				Tables\Columns\TextColumn::make('severity')
+					->badge()
+					->color(fn (string $state): string => match ($state) {
+						'critical' => 'danger',
+						'warning' => 'warning',
+						'error' => 'info',
+						'notice' => 'gray',
+					})
 					->searchable(),
 				Tables\Columns\IconColumn::make('capture')
 					->boolean(),

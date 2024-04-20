@@ -7,13 +7,16 @@ use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\NewAccessToken;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
 	use HasFactory, Notifiable;
-	use HasSuperAdmin, HasRoles, HasPermissions;
+	use HasSuperAdmin, HasRoles, HasPermissions, HasApiTokens;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -52,5 +55,19 @@ class User extends Authenticatable
 	protected function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
 	{
 		return $this->belongsTo(\Spatie\Permission\Models\Role::create());
+	}
+
+	public function createToken(string $name, array $abilities = ['*']): NewAccessToken
+	{
+		$plainTextToken = Str::random(40);
+		$first5 =  Str::substr($plainTextToken, 0, 5);
+		$token = $this->tokens()->create([
+			'name'      => $name,
+			'token'     => hash('sha256', $plainTextToken),
+			'abilities' => $abilities,
+			'token_representation'   => $first5,
+		]);
+
+		return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
 	}
 }

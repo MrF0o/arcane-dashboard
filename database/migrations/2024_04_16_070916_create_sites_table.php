@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('port')->default(80);
             $table->boolean('waf_installed')->default(false);
             $table->boolean('waf_enabled')->default(true);
-            $table->foreignId('waf_version_id')->references('id')->on('waf_versions');
+            $table->foreignId('waf_version_id')->nullable()->references('id')->on('waf_versions');
             $table->timestamps();
         });
     }
