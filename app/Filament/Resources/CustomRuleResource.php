@@ -31,7 +31,6 @@ class CustomRuleResource extends Resource
 	{
 		return $form
 			->schema([
-
 				Forms\Components\Section::make('Constraints')->schema([
 					Forms\Components\Select::make('field')
 						->options(self::$fields)

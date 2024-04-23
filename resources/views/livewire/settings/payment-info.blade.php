@@ -45,5 +45,8 @@
             <div class="w-20 h-20 rounded-full bg-primary-500/30 right-[27%] bottom-[20%] absolute"></div>
             <div class="w-16 h-16 rounded-full bg-primary-500/20 right-[45%] bottom-[20%] absolute"></div>
         </div>
+        <div class="mt-2">
+            <x-filament::button>Edit payment method</x-filament::button>
+        </div>
     </div>
 </div>

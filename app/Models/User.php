@@ -5,11 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -39,6 +42,16 @@ class User extends Authenticatable
 		'remember_token',
 	];
 
+	public function sites()
+	{
+		return $this->hasMany(Site::class);
+	}
+
+	public function code_scans(): HasMany
+	{
+		return $this->hasMany(CodeScan::class);
+	}
+
 	/**
 	 * Get the attributes that should be cast.
 	 *
@@ -52,9 +65,9 @@ class User extends Authenticatable
 		];
 	}
 
-	protected function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+	protected function role(): BelongsTo
 	{
-		return $this->belongsTo(\Spatie\Permission\Models\Role::create());
+		return $this->belongsTo(Role::create());
 	}
 
 	public function createToken(string $name, array $abilities = ['*']): NewAccessToken

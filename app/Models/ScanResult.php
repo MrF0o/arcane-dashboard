@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class ScanResult extends Model
 {
     use HasFactory;
+
+	protected $fillable = [
+		'start_offset',
+		'end_offset',
+		'file_path',
+		'scan_id',
+		'ai_note'
+	];
+
+	public function code_scan() {
+		return $this->belongsTo(CodeScan::class, 'scan_id');
+	}
 }
