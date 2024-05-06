@@ -69,7 +69,7 @@ class CodeScanJob implements ShouldQueue, ShouldBeEncrypted
 				$arguments = json_decode($toolCall->function->arguments, true);
 				if ($name == "_addScanResult") {
 					dump("here\n");
-					$scanner->_addScanResult($arguments['start_offset'], $arguments['end_offset'], $arguments['file_path'], $arguments['note'], $this->scan->id);
+					$scanner->_addScanResult($arguments['start_offset'], $arguments['end_offset'], $arguments['snippets'], $arguments['file_path'], $arguments['note'], $arguments['title'], $this->scan->id);
 					$scanner->addToolMessage(id: $id, content: 'added', name: $name);
 					continue;
 				}

@@ -21,10 +21,25 @@ class AIScanner extends Page implements HasForms
 
 	protected static string $view = 'filament.pages.ai-scanner';
 
-	public CodeScan $selected_scan;
+	// TODO: change these
+	public static int $INITIAL_SCANS_SHOWN = 3;
+	public static int $INITIAL_SCANS_INCR = 1;
+
+	public ?CodeScan $selected_scan;
+	public int $showMax = 3;
+	public bool $showMoreClicked = false;
 
 	public function scans() {
 		return Auth::user()->code_scans();
+	}
+
+	public function increaseLoadMax() {
+		$this->showMax += self::$INITIAL_SCANS_INCR;
+		$this->showMoreClicked = true;
+	}
+
+	public function showLess() {
+
 	}
 
 	public function getTitle(): string|Htmlable
@@ -87,6 +102,12 @@ class AIScanner extends Page implements HasForms
 
 	public function selectScan(CodeScan $scan) {
 		$this->selected_scan = $scan;
+	}
+
+	public function trashScan(CodeScan $scan): void
+	{
+		$this->selected_scan = null;
+		$scan->delete();
 	}
 
 }

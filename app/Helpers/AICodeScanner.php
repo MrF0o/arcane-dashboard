@@ -55,15 +55,23 @@ class AICodeScanner extends OpenAI
 					"properties" => [
 						"start_offset" => [
 							"type" => "integer",
-							"description" => "the start offset of the vulnerable snippets"
+							"description" => "number of characters from the beginning of the file till 'snippets'"
 						],
 						"end_offset" => [
 							"type" => "integer",
-							"description" => "the end offset of the vulnerable snippets"
+							"description" => "the size of 'snippets'"
+						],
+						"snippets" => [
+							"type" => "string",
+							"description" => "the vulnerable code"
 						],
 						"file_path" => [
 							"type" => "string",
 							"description" => "the path of the file"
+						],
+						"title" => [
+							"type" => "string",
+							"description" => "short vulnerability title"
 						],
 						"note" => [
 							"type" => "string",
@@ -71,7 +79,12 @@ class AICodeScanner extends OpenAI
 						],
 					],
 					"required" => [
-						"path"
+						"file_path",
+						"start_offset",
+						"end_offset",
+						"title",
+						"snippets",
+						"note"
 					]
 				]
 			]
@@ -97,10 +110,10 @@ class AICodeScanner extends OpenAI
 			$res = Http::post($this->endpoint . '/_getFileContent', [
 				'file_path' => $path
 			]);
-			dump($res->body());
+
 			return $res->body();
 		} catch (\Exception $e) {
-
+			dump($e);
 		}
 	}
 
@@ -109,7 +122,7 @@ class AICodeScanner extends OpenAI
 		return 'php';
 	}
 
-	public function _addScanResult(int $start_offset, int $end_offset, string $file_path, string $note, int $scan_id)
+	public function _addScanResult(int $start_offset, int $end_offset, string $snippets,  string $file_path, string $note, string $title, int $scan_id)
 	{
 		$result = new ScanResult([
 			'start_offset' => $start_offset,
@@ -117,14 +130,25 @@ class AICodeScanner extends OpenAI
 			'file_path' => $file_path,
 			'scan_id' => $scan_id,
 			'ai_note' => $note,
-			'vulnerable_snippets' => $this->getVulnerableSnippets($start_offset, $end_offset, $file_path),
+			'title' => $title,
+			'vulnerable_snippets' => $snippets,
 		]);
 		$result->save();
 	}
 
 	public function getVulnerableSnippets($start_offset, $end_offset, $path): string
 	{
-		return "";
+		try {
+			$res = Http::post($this->endpoint . '/_fileSnippets', [
+				'file_path' => $path,
+				'start_offset' => $start_offset,
+				'end_offset' => $end_offset
+			]);
+			dump($res->body());
+			return $res->body();
+		} catch (\Exception $e) {
+			dump($e);
+		}
 	}
 
 

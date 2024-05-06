@@ -4,16 +4,16 @@
 
 
 .side-scan:hover > .side-scan-action {
-    @apply flex gap-1 items-center
+    @apply flex
 }
 
 .expandable.collapsed:after {
-    @apply animate-[fade_500ms_ease-in-out_infinite];
-    content: "";
-    position: absolute;
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 80%);
-    width: 100%;
-    bottom: 10%;
-    height: 40%;
+    @apply animate-[fade_500ms_ease-in-out_infinite] content-[""] absolute w-full from-0% dark:via-gray-900 via-white via-15% dark:from-gray-900 rounded-b-xl bg-gradient-to-t from-white to-transparent bottom-0 h-[60%];
+    /*content: "";*/
+    /*position: absolute;*/
+    /*background: rgb(0,0,0);*/
+    /*background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 80%);*/
+    /*width: 100%;*/
+    /*bottom: 0;*/
+    /*height: 40%;*/
 }
