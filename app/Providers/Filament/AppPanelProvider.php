@@ -31,6 +31,7 @@ class AppPanelProvider extends PanelProvider
 			->id('app')
 			->path('app')
 			->login()
+			->passwordReset()
 			->colors([
 				'primary' => Color::Amber,
 			])
@@ -59,7 +60,11 @@ class AppPanelProvider extends PanelProvider
 				DisableBladeIconComponents::class,
 				DispatchServingFilamentEvent::class,
 			])
+			->brandLogo(asset('images/logo/logo.svg'))
+			->darkModeBrandLogo(asset('images/logo/logo-white.svg'))
+			->brandLogoHeight('2.5rem')
 			->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+			->registration()
 			->authMiddleware([
 				Authenticate::class,
 			]);

@@ -29,6 +29,7 @@ class User extends Authenticatable
 	protected $fillable = [
 		'name',
 		'email',
+		'supervisor_id',
 		'password',
 	];
 
@@ -73,14 +74,23 @@ class User extends Authenticatable
 	public function createToken(string $name, array $abilities = ['*']): NewAccessToken
 	{
 		$plainTextToken = Str::random(40);
-		$first5 =  Str::substr($plainTextToken, 0, 5);
+		$first5 = Str::substr($plainTextToken, 0, 5);
 		$token = $this->tokens()->create([
-			'name'      => $name,
-			'token'     => hash('sha256', $plainTextToken),
+			'name' => $name,
+			'token' => hash('sha256', $plainTextToken),
 			'abilities' => $abilities,
-			'token_representation'   => $first5,
+			'token_representation' => $first5,
 		]);
 
-		return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+		return new NewAccessToken($token, $token->getKey() . '|' . $plainTextToken);
+	}
+
+	public static function booted(): void
+	{
+		static::creating(function (User $user) {
+			if ($user->supervisor_id) {
+				$user->assignRole('User');
+			}
+		});
 	}
 }

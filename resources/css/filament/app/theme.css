@@ -7,6 +7,31 @@
     @apply flex
 }
 
+.loader {
+    @apply bg-primary-500;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: animloader 1s ease-in infinite;
+}
+
+@keyframes animloader {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.fi-wi-stats-overview-stat-label {
+    @apply flex items-center;
+}
+
 .expandable.collapsed:after {
     @apply animate-[fade_500ms_ease-in-out_infinite] content-[""] absolute w-full from-0% dark:via-gray-900 via-white via-15% dark:from-gray-900 rounded-b-xl bg-gradient-to-t from-white to-transparent bottom-0 h-[60%];
     /*content: "";*/

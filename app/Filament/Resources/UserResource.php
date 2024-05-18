@@ -7,11 +7,13 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
@@ -30,11 +32,16 @@ class UserResource extends Resource
 					->email()
 					->required(),
 				Forms\Components\Select::make('role')
-					->multiple()
-					->relationship('roles', 'name'),
+					->disabled(fn () => Auth::user()->hasRole('Admin'))
+					->options(Auth::user()->hasRole('Admin') ? Role::where('name', 'User')->pluck('name', 'id') : Role::all()->pluck('name', 'id'))
+					->default(Role::findByName('User')->id)
+					->selectablePlaceholder(false)
+					->required()
+					->live(),
 				Forms\Components\DateTimePicker::make('email_verified_at'),
 				Forms\Components\TextInput::make('password')
 					->password()
+					->revealable()
 					->required(),
 			]);
 	}

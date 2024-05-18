@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Membership extends Model
 {
     use HasFactory;
+
+	protected $fillable = [
+		'price',
+		'title',
+		'description',
+		'free_trial',
+	];
 }

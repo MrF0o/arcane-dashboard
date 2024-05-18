@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SiteResource\Pages;
 use App\Filament\Resources\SiteResource\RelationManagers;
 use App\Models\Site;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class SiteResource extends Resource
 {
@@ -66,8 +68,10 @@ class SiteResource extends Resource
             ->filters([
                 //
             ])
+	        ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', Auth::user()->id))
             ->actions([
                 Tables\Actions\EditAction::make(),
+	            Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -79,7 +83,7 @@ class SiteResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

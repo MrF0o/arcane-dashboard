@@ -11,19 +11,19 @@
                     <span class="text-xs text-gray-700 font-medium p-2 dark:text-white">Today</span>
                 </div>
 
-                <div class="flex flex-col gap-1">
-                    @foreach($this->scans()->take($showMax)->get() as $scan)
-                        <div wire:key="{{ $scan->id }}" wire:click="selectScan({{ $scan->id }})" class="hover:bg-gray-50  dark:hover:bg-white/5 transition duration-300 rounded-md p-2 cursor-pointer flex justify-between items-center side-scan {{ $selected_scan && $selected_scan->id === $scan->id ? "bg-gray-50 dark:bg-white/5" : "" }}">
+                <div class="flex flex-col gap-1" wire:>
+                    @foreach($this->scans->take($showMax) as $scan)
+                        <div wire:key="{{ $scan->id }}" wire:click.stop="selectScan({{ $scan->id }})" class="hover:bg-gray-50  dark:hover:bg-white/5 transition duration-300 rounded-md p-2 cursor-pointer flex justify-between items-center side-scan {{ $selected_scan && $selected_scan->id === $scan->id ? "bg-gray-50 dark:bg-white/5" : "" }}">
                             <div class="flex items-center">
                                 <h5 class="font-medium dark:text-gray-50 text-gray-700 text-sm {{ $selected_scan && $selected_scan->id === $scan->id ? "text-primary-600 dark:text-primary-400" : "" }}">Scan {{ \Illuminate\Support\Carbon::make($scan->created_at)->diffForHumans() }}</h5>
                                 <x-filament::badge class="ms-1" size="sm" color="{{ ($scan->status === 'finished' ? 'info' : 'warning') }}">{{$scan->status}}</x-filament::badge>
                             </div>
                             <div class="side-scan-action {{ $selected_scan && $selected_scan->id === $scan->id ? 'flex' : 'hidden' }} items-center gap-1 dark:text-gray-50 text-gray-700">
                                 <x-heroicon-c-ellipsis-vertical class="h-5 w-5"></x-heroicon-c-ellipsis-vertical>
-                                <x-heroicon-c-trash wire:click="trashScan({{ $scan->id }})" class="h-4 w-4"></x-heroicon-c-trash>
+                                <x-heroicon-c-trash wire:click.stop="trashScan({{ $scan->id }})" class="h-4 w-4"></x-heroicon-c-trash>
                             </div>
                         </div>
-                        @if($this->scans()->take(self::$INITIAL_SCANS_SHOWN)->get()->last()->id == $scan->id)
+                        @if($this->scans->take(self::$INITIAL_SCANS_SHOWN)->last()->id == $scan->id)
                             <div>
                                 <button wire:click="increaseLoadMax()" class="flex relative p-2 text-sm items-center w-full hover:bg-gray-50  dark:hover:bg-white/5 rounded-full transition duration-300">
                                     <span><x-heroicon-o-chevron-down class="h-5 w-5"></x-heroicon-o-chevron-down></span>

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('log_entries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('custom_rule_id')->references('id')->on('custom_rules');
+            $table->foreignId('custom_rule_id')->nullable()->references('id')->on('custom_rules');
             $table->text('message');
-            $table->foreignId('blocked_message_id')->references('id')->on('blocked_messages');
+            $table->foreignId('blocked_message_id')->nullable()->references('id')->on('blocked_messages');
             $table->timestamps();
         });
     }

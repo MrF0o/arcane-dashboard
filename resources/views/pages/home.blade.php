@@ -80,56 +80,6 @@
                                             Contact
                                         </a>
                                     </li>
-                                    <li class="group relative">
-                                        <a
-                                                href="#test"
-                                                class="ud-menu-scroll mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary dark:text-white lg:ml-7 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10"
-                                        >
-                                            Blog
-                                        </a>
-                                    </li>
-                                    <li class="submenu-item group relative">
-                                        <a
-                                                href="javascript:void(0)"
-                                                class="relative mx-8 flex items-center justify-between py-2 text-base font-medium text-dark group-hover:text-primary dark:text-white lg:ml-8 lg:mr-0 lg:inline-flex lg:py-6 lg:pl-0 lg:pr-4 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10"
-                                        >
-                                            Pages
-
-                                            <svg class="ml-2 fill-current" width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                        d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z"
-                                                />
-                                            </svg>
-                                        </a>
-                                        <div
-                                                class="submenu relative left-0 top-full hidden w-[250px] rounded-sm bg-white p-4 transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark-2 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full"
-                                        >
-                                            <a href="about.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                About Page
-                                            </a>
-                                            <a href="pricing.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Pricing Page
-                                            </a>
-                                            <a href="contact.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Contact Page
-                                            </a>
-                                            <a href="blog-grids.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Blog Grid Page
-                                            </a>
-                                            <a href="blog-details.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Blog Details Page
-                                            </a>
-                                            <a href="signup.html" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Sign Up Page
-                                            </a>
-                                            <a href="#" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                Sign In Page
-                                            </a>
-                                            <a href="" class="block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary">
-                                                404 Page
-                                            </a>
-                                        </div>
-                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -212,7 +162,7 @@
                             <ul class="mb-10 flex flex-wrap items-center justify-center gap-5">
                                 <li>
                                     <a
-                                            href="https://links.tailgrids.com/play-download"
+                                            href="#"
                                             class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                                     >
                                         Download Now
@@ -220,7 +170,7 @@
                                 </li>
                                 <li>
                                     <a
-                                            href="https://github.com/tailgrids/play-tailwind"
+                                            href="https://github.com/Mrf0o/"
                                             target="_blank"
                                             class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
                                     >
@@ -238,7 +188,7 @@
                                 </p>
                                 <div class="wow fadeInUp flex items-center justify-center gap-4 text-center" data-wow-delay=".3s">
 
-                                    <a href="https://github.com/TailGrids/play-tailwind/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg class="fill-current" width="41" height="26" viewBox="0 0 41 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <mask id="mask0_2005_10783" style="mask-type: luminance;" maskUnits="userSpaceOnUse" x="0" y="0" width="41" height="26">
                                                 <path d="M0.521393 0.949463H40.5214V25.0135H0.521393V0.949463Z"/>
@@ -251,7 +201,7 @@
                                         </svg>
                                     </a>
 
-                                    <a href="https://github.com/NextJSTemplates/play-nextjs" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg class="mt-0.5 fill-current" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6.078 12A5.928 5.928 0 0 1 12 6.078a5.946 5.946 0 0 1 5.129 2.959l-1.499.867 5.027-2.902a1.579 1.579 0 0 0-.543-.575l-7.345-4.24c-.424-.245-1.116-.245-1.539 0l-7.345 4.24c-.422.244-.768.844-.768 1.333v8.48c0 .245.086.517.226.758l3.529-2.038A5.883 5.883 0 0 1 6.078 12z"/>
                                             <path d="M14.564 10.519A2.971 2.971 0 0 0 12 9.039a2.964 2.964 0 0 0-2.564 4.441L12 12l2.564-1.481z"/>
@@ -259,7 +209,7 @@
                                         </svg>
                                     </a>
 
-                                    <a href="https://github.com/TailGrids/play-astro/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg width="36" height="36" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.10395 3.39722L6.57057 8.33045L3.92564 9.2121L2.59746 3.89939L4.10395 3.39722Z" fill="currentColor"/>
                                             <path d="M9.27727 11.5078L7.98064 8.91452L11.1378 7.86212L12.3027 9.69254L9.27727 11.5078Z" fill="currentColor"/>
@@ -268,20 +218,20 @@
                                         </svg>
                                     </a>
 
-                                    <a href="https://github.com/NextJSTemplates/play-nextjs" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" fill="none" height="40" viewBox="0 0 128 128">
                                             <path fill="currentColor" fill-rule="evenodd" d="M98.444 35.562 126 62.997 98.444 90.432 70.889 62.997z" clip-rule="evenodd"/>
                                             <path fill="currentColor" fill-rule="evenodd" d="m29.556 35.562 57.126 56.876H31.571L2 62.997z" clip-rule="evenodd"/>
                                         </svg>
 
                                     </a>
-                                    <a href="https://github.com/NextJSTemplates/play-nextjs" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="none" height="45" viewBox="0 0 128 128">
                                             <path d="M24.5 50.5c-1.5 0-2.5 1.2-2.5 2.7v14.1l-15.9-16c-.8-.8-2.2-1-3.2-.6S1 52.1 1 53.2v20.7c0 1.5 1.5 2.7 3 2.7s3-1.2 3-2.7V59.8l16.1 16c.5.5 1.2.8 1.9.8.3 0 .4-.1.7-.2 1-.4 1.3-1.4 1.3-2.5V53.3c0-1.5-1-2.8-2.5-2.8zm19.7 11.8c-1.4 0-2.7 1.4-2.7 2.8s1.3 2.8 2.7 2.8l6.6.4-1.5 3.7h-8.5l-4.2-7.9 4.3-8.1H50l2.1 4h5.5L54 52.1l-.8-1.1H37.6l-.7 1.2L31 62.5l-.7 1.3.7 1.3 5.8 10.3.8 1.6h15.1l.7-1.7 4.3-9 1.9-4.3h-4.4l-11 .3zM65 50.5c-1.4 0-3 1.3-3 2.7V60h6v-6.7c0-1.5-1.6-2.8-3-2.8zm30.4.3c-1-.4-2.4-.2-3.1.6L76 67.4V53.3c0-1.5-1-2.7-2.5-2.7S71 51.8 71 53.3V74c0 1.1.7 2.1 1.7 2.5.3.1.7.2 1 .2.7 0 1.6-.3 2.1-.8l16.2-16V74c0 1.5 1 2.7 2.5 2.7S97 75.5 97 74V53.3c0-1.1-.6-2.1-1.6-2.5zm21.8 12.8l8.4-8.4c1.1-1.1 1.1-2.8 0-3.8-1.1-1.1-2.8-1.1-3.8 0l-8.4 8.4-8.4-8.4c-1.1-1.1-2.8-1.1-3.8 0-1.1 1.1-1.1 2.8 0 3.8l8.4 8.4-8.4 8.4c-1.1 1.1-1.1 2.8 0 3.8.5.5 1.2.8 1.9.8s1.4-.3 1.9-.8l8.4-8.4 8.4 8.4c.5.5 1.2.8 1.9.8s1.4-.3 1.9-.8c1.1-1.1 1.1-2.8 0-3.8l-8.4-8.4zM62 73.9c0 1.4 1.5 2.7 3 2.7 1.4 0 3-1.3 3-2.7V62h-6v11.9z" fill="currentColor"/>
                                         </svg>
 
                                     </a>
-                                    <a href="https://github.com/NextJSTemplates/play-nextjs" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
+                                    <a href="https://github.com/Mrf0o/" class="text-white/60 duration-300 ease-in-out hover:text-white" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" fill="none" height="40" viewBox="0 0 128 128">
                                             <path fill="currentColor" d="M86.522.606c-2.007 1.185-5.348 4.54-9.318 9.407l3.652 6.903c2.57-3.666 5.177-6.977 7.807-9.8l.304-.325-.304.326c-.852.933-3.437 3.955-7.333 9.94 3.755-.185 9.518-.956 14.222-1.756 1.407-7.844-1.37-11.429-1.37-11.429S90.654-1.83 86.521.606Z"/>
                                             <path fill="currentColor" d="M74.234 58.596c-.467.081-.94.17-1.437.252 0 0-.007 0-.007.007l.74-.111c.23-.052.467-.096.704-.148Z"/>
@@ -315,7 +265,7 @@
                     <div class="w-full px-4">
                         <div class="wow fadeInUp relative z-10 mx-auto max-w-[845px]" data-wow-delay=".25s">
                             <div class="mt-16">
-                                <img src="images/hero/hero-image.jpg" alt="hero" class="mx-auto max-w-full rounded-t-xl rounded-tr-xl"/>
+                                <img src="images/dashboard.png" alt="hero" class="mx-auto max-w-full rounded-t-xl rounded-tr-xl"/>
                             </div>
                             <div class="absolute -left-9 bottom-0 z-[-1]">
                                 <svg width="134" height="106" viewBox="0 0 134 106" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -14,6 +14,7 @@ class Site extends Model
 		'document_root',
 		'domain',
 		'port',
+		'user_id',
 		'waf_installed',
 		'waf_enabled',
 		'waf_version_id',
@@ -23,5 +24,9 @@ class Site extends Model
 	public function user(): BelongsTo
 	{
 		return $this->belongsTo(User::class);
+	}
+
+	public function logs() {
+		return $this->hasMany(LogEntry::class);
 	}
 }
