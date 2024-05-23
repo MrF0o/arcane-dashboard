@@ -13,7 +13,17 @@
         </div>
     </div>
     <div class="mt-2">
-
-
+        <div>
+            <form wire:submit="save">
+                <div class="pb-3">
+                    {{ $this->form }}
+                </div>
+                <div class="flex justify-end">
+                    <x-filament::button type="submit">
+                        Save
+                    </x-filament::button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

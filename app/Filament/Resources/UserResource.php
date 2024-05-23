@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
@@ -32,17 +33,21 @@ class UserResource extends Resource
 					->email()
 					->required(),
 				Forms\Components\Select::make('role')
+					->relationship(name: 'roles', titleAttribute: 'name')
 					->disabled(fn () => Auth::user()->hasRole('Admin'))
 					->options(Auth::user()->hasRole('Admin') ? Role::where('name', 'User')->pluck('name', 'id') : Role::all()->pluck('name', 'id'))
 					->default(Role::findByName('User')->id)
 					->selectablePlaceholder(false)
+					->native(false)
 					->required()
 					->live(),
 				Forms\Components\DateTimePicker::make('email_verified_at'),
 				Forms\Components\TextInput::make('password')
 					->password()
 					->revealable()
-					->required(),
+					->dehydrateStateUsing(fn ($state) => Hash::make($state))
+					->dehydrated(fn ($state) => filled($state))
+					->required(fn (string $context): bool => $context === 'create'),
 			]);
 	}
 

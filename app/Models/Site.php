@@ -26,7 +26,18 @@ class Site extends Model
 		return $this->belongsTo(User::class);
 	}
 
-	public function logs() {
+	public function logs()
+	{
 		return $this->hasMany(LogEntry::class);
+	}
+
+	public function subscription()
+	{
+		return $this->hasOne(Subscription::class);
+	}
+
+	public function scans()
+	{
+		return $this->hasMany(CodeScan::class);
 	}
 }

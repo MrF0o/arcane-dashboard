@@ -2,12 +2,20 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\ScanResult;
+use App\Models\Site;
+use Carbon\Carbon;
+use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Flowframe\Trend\Trend;
+use Flowframe\Trend\TrendValue;
+use Illuminate\Support\Facades\Auth;
 
 class VulnChart extends ChartWidget
 {
 	protected static ?int $sort = 33;
     protected static ?string $heading = 'Vulnerabilities';
+	protected static ?string $pollingInterval = '10s';
 	protected static bool $isLazy = false;
 	public ?string $filter = 'week';
 	protected function getFilters(): ?array
@@ -20,34 +28,71 @@ class VulnChart extends ChartWidget
 		];
 	}
 
+	protected function getOptions(): RawJs
+	{
+		return RawJs::make(<<<JS
+        {
+            scales: {
+                y: {
+                    ticks: {
+                        precision: 0,
+                    },
+                    beginAtZero: true
+                },
+            },
+        }
+    JS
+		);
+	}
+
     protected function getData(): array
     {
+		$query = ScanResult::whereHas('code_scan', fn ($query) => $query->whereHas('site', fn ($query) => $query->where('user_id', Auth::user()->id)));
+		$data = Trend::query($query);
+
 	    $activeFilter = $this->filter;
 
 		if ($activeFilter == 'today') {
-			$label = ['6-10', '10-14', '14-18', '18-22', '22-2', '2-6'];
+			$data = $data->between(
+				start: now()->startOfDay(),
+				end: now()->endOfDay()
+			);
+			$data = $data->perHour();
 		}
 
 		if ($activeFilter == 'week') {
-			$label = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+			$data = $data->between(
+				start: now()->startOfWeek(),
+				end: now()->endOfWeek()
+			);
+			$data = $data->perDay();
 		}
 
 		if ($activeFilter == 'month') {
-
+			$data = $data->between(
+				start: now()->startOfMonth(),
+				end: now()->endOfMonth()
+			);
+			$data = $data->perDay();
 		}
 
-		if ($activeFilter == 'yes') {
+	    if ($activeFilter == 'year') {
+		    $data = $data->between(
+			    start: now()->startOfYear(),
+			    end: now()->endOfYear()
+		    );
+		    $data = $data->perMonth();
+	    }
 
-		}
-
+	    $data = $data->count();
 	    return [
 		    'datasets' => [
 			    [
 				    'label' => 'Vulnerabilities found',
-				    'data' => [0, 10, 5, 2, 21, 32, 45, 74, 65, 45, 77, 89],
+				    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
 			    ],
 		    ],
-		    'labels' => $label,
+		    'labels' => $data->map(fn (TrendValue $value) => $value->date),
 	    ];
     }
 

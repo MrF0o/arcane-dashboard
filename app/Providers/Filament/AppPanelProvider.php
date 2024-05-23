@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Http\Middleware\CreateSubscriptionMiddleware;
+use App\Http\Middleware\SubscriptionMiddleware;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -66,7 +68,9 @@ class AppPanelProvider extends PanelProvider
 			->plugin(FilamentSpatieRolesPermissionsPlugin::make())
 			->registration()
 			->authMiddleware([
+				CreateSubscriptionMiddleware::class,
 				Authenticate::class,
+				SubscriptionMiddleware::class
 			]);
 	}
 

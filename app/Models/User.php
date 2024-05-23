@@ -66,11 +66,6 @@ class User extends Authenticatable
 		];
 	}
 
-	protected function role(): BelongsTo
-	{
-		return $this->belongsTo(Role::create());
-	}
-
 	public function createToken(string $name, array $abilities = ['*']): NewAccessToken
 	{
 		$plainTextToken = Str::random(40);
@@ -90,7 +85,18 @@ class User extends Authenticatable
 		static::creating(function (User $user) {
 			if ($user->supervisor_id) {
 				$user->assignRole('User');
+			} else {
+				$user->assignRole('Admin');
 			}
 		});
+	}
+
+	public function subscriptions(): HasMany
+	{
+		return $this->hasMany(Subscription::class);
+	}
+
+	public function subscribed() {
+		return !$this->subscriptions()->get()->isEmpty() || $this->isSuperAdmin() || $this->hasRole('User');
 	}
 }

@@ -2,19 +2,22 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
+use Spatie\Permission\Models\Role;
 
 class UsersOverview extends BaseWidget
 {
 	protected static bool $isLazy = false;
 	protected static ?int $sort = 1;
+
     protected function getStats(): array
     {
 	    $stats = [
-		    Stat::make("Users", 10)
+		    Stat::make("Users", (Auth::user()->isSuperAdmin() ? User::count() : User::where('supervisor_id', Auth::user()->id)->count()))
 		        ->icon("heroicon-o-user"),
 		    // TODO: live visitors
 		    Stat::make(new HtmlString('<span>Live visitors</span> <span class="loader"></span>'), 333)
@@ -24,7 +27,7 @@ class UsersOverview extends BaseWidget
 		$user = Auth::user();
 
 		if ($user->hasRole('Super Admin')) {
-			array_unshift($stats, Stat::make("Admins", 10)->icon("heroicon-o-user"));
+			array_unshift($stats, Stat::make("Admins", Role::findByName('Admin')->users()->count())->icon("heroicon-o-user"));
 		}
 
 		if ($user->hasRole('Admin') || $user->hasRole('Super Admin')) {

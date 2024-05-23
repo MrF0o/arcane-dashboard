@@ -15,4 +15,8 @@ class Membership extends Model
 		'description',
 		'free_trial',
 	];
+
+	public function subscriptions() {
+		return $this->hasMany(Subscription::class);
+	}
 }

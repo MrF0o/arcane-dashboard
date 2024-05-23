@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <div x-data="{ tab: 'tab2' }" class="lg:flex w-full">
+    <div x-data="{ tab: 'tab1' }" class="lg:flex w-full">
         <x-filament::tabs label="Content tabs" class="lg:flex lg:flex-col mx-0 shrink-0 lg:w-3/12 sm:w-full h-fit">
             <x-filament::tabs.item @click="tab = 'tab1'" :alpine-active="'tab === \'tab1\''">
                 <div class="flex gap-2 items-center">

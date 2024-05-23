@@ -4,7 +4,7 @@
         <meta charset="UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title></title>
+        <title>Arcane WAF System</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>
 
@@ -136,7 +136,7 @@
                                 <a href="{{ route('filament.app.auth.login') }}" class="loginBtn px-[22px] py-2 text-base font-medium text-white hover:opacity-70">
                                     Sign In
                                 </a>
-                                <a href="#" class="signUpBtn rounded-md bg-white bg-opacity-20 px-6 py-2 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 hover:text-dark">
+                                <a href="{{ route('filament.app.auth.register') }}" class="signUpBtn rounded-md bg-white bg-opacity-20 px-6 py-2 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 hover:text-dark">
                                     Sign Up
                                 </a>
                             </div>

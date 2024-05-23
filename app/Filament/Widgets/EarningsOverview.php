@@ -2,24 +2,35 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Membership;
+use App\Models\Subscription;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Number;
 
 class EarningsOverview extends BaseWidget
 {
 	protected static bool $isLazy = false;
-    protected function getStats(): array
-    {
-        return [
-            Stat::make("Earnings", "$123")
-	            ->description("All time earnings"),
-	        Stat::make("Subscriptions", 10)
-		        ->description("All time subscriptions"),
-	        Stat::make("Memberships", 3),
-        ];
-    }
+
+	protected function getStats(): array
+	{
+		$total_earnings = Subscription::with('membership')
+			->where('free_trial', false)
+			->get()
+			->pluck('membership')
+			->flatten()
+			->sum('price');
+
+		return [
+			Stat::make("Earnings", Number::currency($total_earnings, 'TND', 'tn'))
+				->description("All time earnings"),
+			Stat::make("Subscriptions", Subscription::count())
+				->description("All time subscriptions"),
+			Stat::make("Memberships", Membership::count()),
+		];
+	}
 
 	public static function canView(): bool
 	{
