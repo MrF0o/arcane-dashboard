@@ -21,7 +21,7 @@ class AssignmentPolicy
 	 */
 	public function view(User $user, Assignment $assignment): bool
 	{
-		return $user->checkPermissionTo('Assignment.view');
+		return $user->checkPermissionTo('Assignment.view') && $assignment->user_id == $user->id;
 	}
 
 	/**
@@ -29,6 +29,7 @@ class AssignmentPolicy
 	 */
 	public function create(User $user): bool
 	{
+
 		return $user->checkPermissionTo('Assignment.create');
 	}
 
@@ -39,6 +40,10 @@ class AssignmentPolicy
 	{
 		return $user->checkPermissionTo('Assignment.update');
 	}
+
+    public function edit() {
+        dd('yes');
+    }
 
 	/**
 	 * Determine whether the user can delete the model.

@@ -62,9 +62,9 @@ class LogEntryResource extends Resource
                     ->numeric()
 	                ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('match')
-                    ->formatStateUsing(fn ($state) => new HtmlString("<code>" . e($state) ."</code>"))
-                    ->sortable(),
+//                Tables\Columns\TextColumn::make('match')
+//                    ->formatStateUsing(fn ($state) => new HtmlString("<code>" . e($state) ."</code>"))
+//                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -75,7 +75,9 @@ class LogEntryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->modalHeading("Log Entry")
+                    ->modalContent(view("components.view-logentry")),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

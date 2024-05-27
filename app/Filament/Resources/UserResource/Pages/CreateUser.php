@@ -20,4 +20,5 @@ class CreateUser extends CreateRecord
 		$data['supervisor_id'] = Auth::user()->id;
 		return $data;
 	}
+
 }

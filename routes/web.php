@@ -4,15 +4,14 @@ use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('pages.home');
+    $memberships = \App\Models\Membership::all();
+    return view('pages.home', compact('memberships'));
 });
 
 Route::middleware('auth')->group(function () {
-
 	Route::get('/subscribe', [SubscriptionController::class, 'index'])->name('subscribe');
 	Route::get('/redirect-to-sub/{membership}', [SubscriptionController::class, 'redirect'])->name('redirect');
 	Route::get('/waf/download/{waf_version}', function () {
-
 	})->name('waf.download');
 });
 

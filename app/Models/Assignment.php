@@ -17,9 +17,11 @@ class Assignment extends Model
 		'status'
 	];
 
+
+
 	public function scan(): BelongsTo
 	{
-		return $this->belongsTo(CodeScan::class);
+		return $this->belongsTo(ScanResult::class, 'scan_result_id');
 	}
 
 	public function user(): BelongsTo

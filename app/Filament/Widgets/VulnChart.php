@@ -47,7 +47,7 @@ class VulnChart extends ChartWidget
 
     protected function getData(): array
     {
-		$query = ScanResult::whereHas('code_scan', fn ($query) => $query->whereHas('site', fn ($query) => $query->where('user_id', Auth::user()->id)));
+		$query = ScanResult::whereHas('code_scan', fn ($query) => $query->whereHas('site', fn ($query) => $query->where('user_id', Auth::user()->id)->orWhere('user_id', Auth::user()->supervisor_id)));
 		$data = Trend::query($query);
 
 	    $activeFilter = $this->filter;

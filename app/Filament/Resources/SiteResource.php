@@ -29,6 +29,7 @@ class SiteResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('domain')
+                    ->unique('sites', 'domain')
                     ->required(),
                 Forms\Components\TextInput::make('port')
                     ->required()
@@ -36,6 +37,7 @@ class SiteResource extends Resource
                     ->default(80),
                 Forms\Components\Toggle::make('waf_enabled')
 	                ->label("Enable WAF")
+                    ->visible(Auth::user()->hasPermissionTo('TurnOffOnWaf'))
                     ->required(),
             ]);
     }
@@ -68,7 +70,7 @@ class SiteResource extends Resource
             ->filters([
                 //
             ])
-	        ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', Auth::user()->id))
+	        ->modifyQueryUsing(fn (Builder $query) => $query->where('user_id', Auth::user()->id)->orWhere('user_id', Auth::user()->supervisor_id))
             ->actions([
                 Tables\Actions\EditAction::make(),
 	            Tables\Actions\DeleteAction::make()

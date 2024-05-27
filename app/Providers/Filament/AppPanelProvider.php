@@ -47,7 +47,6 @@ class AppPanelProvider extends PanelProvider
 //                Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
 			])
-			->globalSearch()
 			->viteTheme('resources/css/filament/app/theme.css')
 			->renderHook('panels::body.end',
 				fn(): string => Blade::render("@vite(['resources/js/app.js'])"))
@@ -63,6 +62,7 @@ class AppPanelProvider extends PanelProvider
 				DispatchServingFilamentEvent::class,
 			])
 			->brandLogo(asset('images/logo/logo.svg'))
+            ->homeUrl(url('/'))
 			->darkModeBrandLogo(asset('images/logo/logo-white.svg'))
 			->brandLogoHeight('2.5rem')
 			->plugin(FilamentSpatieRolesPermissionsPlugin::make())

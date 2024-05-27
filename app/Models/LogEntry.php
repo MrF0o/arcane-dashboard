@@ -12,4 +12,12 @@ class LogEntry extends Model
 	public function site() {
 		return $this->belongsTo(Site::class);
 	}
+
+    protected $fillable = [
+        'message',
+        'is_ip_banned',
+        'site_id',
+        'related_ip',
+        'match',
+    ];
 }

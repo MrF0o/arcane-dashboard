@@ -23,8 +23,20 @@ class CustomRuleResource extends Resource
 
 	private static array $fields = [
 		"Request" => [
-			'REQUEST_BODY' => 'Request Body'
-		]
+			'REQUEST_BODY' => 'Request Body',
+            'REQUEST_ARGS' => 'Request Arguments',
+            'REQUEST_ARGS_NAMES' => 'Request Argument Names',
+            'REQUEST_COOKIES' => 'Request Cookies',
+            'REQUEST_COOKIES_NAMES' => 'Request Cookies Names',
+            'REQUEST_IP' => 'Request IP',
+		],
+        "Response" => [
+            'RESPONSE_BODY' => 'Response Body',
+            'RESPONSE_ARGS' => 'Response Arguments',
+            'RESPONSE_ARGS_NAMES' => 'Response Argument Names',
+            'RESPONSE_COOKIES' => 'Response Cookies',
+            'RESPONSE_COOKIES_NAMES' => 'Response Cookies Names',
+        ]
 	];
 
 	public static function form(Form $form): Form

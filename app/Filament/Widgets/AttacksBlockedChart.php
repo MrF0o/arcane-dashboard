@@ -48,7 +48,7 @@ class AttacksBlockedChart extends ChartWidget
     protected function getData(): array
     {
 
-	    $query = LogEntry::whereHas('site', fn ($query) => $query->where('user_id', Auth::user()->id));
+	    $query = LogEntry::whereHas('site', fn ($query) => $query->where('user_id', Auth::user()->id)->orWhere('user_id', Auth::user()->supervisor_id));
 
 	    $data = Trend::query($query);
 

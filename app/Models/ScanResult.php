@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ScanResult extends Model
 {
@@ -23,4 +25,9 @@ class ScanResult extends Model
 	{
 		return $this->belongsTo(CodeScan::class, 'scan_id');
 	}
+
+    public function assignment(): hasOne
+    {
+        return $this->hasOne(Assignment::class);
+    }
 }

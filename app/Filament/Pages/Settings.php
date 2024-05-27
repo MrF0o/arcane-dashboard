@@ -17,6 +17,8 @@ class Settings extends Page
 
     protected static string $view = 'filament.pages.settings';
 
+    protected static ?int $navigationSort = 999;
+
 	public function getTitle(): string|Htmlable
 	{
 		return "";

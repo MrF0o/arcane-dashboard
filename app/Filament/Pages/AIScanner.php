@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Jobs\CodeScanJob;
+use App\Models\Assignment;
 use App\Models\CodeScan;
 use App\Models\Site;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
@@ -18,119 +20,142 @@ use Illuminate\Support\Facades\Auth;
 
 class AIScanner extends Page implements HasForms
 {
-	protected static ?string $navigationIcon = 'heroicon-o-command-line';
+    protected static ?string $navigationIcon = 'heroicon-o-command-line';
 
-	protected static string $view = 'filament.pages.ai-scanner';
+    protected static string $view = 'filament.pages.ai-scanner';
 
-	// TODO: change these
-	public static int $INITIAL_SCANS_SHOWN = 3;
-	public static int $INITIAL_SCANS_INCR = 1;
+    // TODO: change these
+    public static int $INITIAL_SCANS_SHOWN = 6;
+    public static int $INITIAL_SCANS_INCR = 1;
 
-	public Collection $scans;
-	public ?CodeScan $selected_scan;
-	public int $showMax = 3;
-	public bool $showMoreClicked = false;
+    public Collection $scans;
+    public ?CodeScan $selected_scan;
+    public int $showMax = 3;
+    public bool $showMoreClicked = false;
 
-	public function mount()
-	{
-		$this->scans = Auth::user()->code_scans()->get();
-	}
+    public function mount()
+    {
+        $this->scans = Auth::user()->code_scans()->get();
+    }
 
-	public function increaseLoadMax()
-	{
-		$this->showMax += self::$INITIAL_SCANS_INCR;
-		$this->showMoreClicked = true;
-	}
+    public function increaseLoadMax()
+    {
+        $this->showMax += self::$INITIAL_SCANS_INCR;
+        $this->showMoreClicked = true;
+    }
 
-	public function showLess()
-	{
+    public function showLess()
+    {
 
-	}
+    }
 
-	public function getTitle(): string|Htmlable
-	{
-		return "";
-	}
+    public function getTitle(): string|Htmlable
+    {
+        return "";
+    }
 
-	public function assignAction()
-	{
-		return Action::make('assign')
-				->label('Assign to')
-				->modalHeading('Assign vulnerability to')
-				->modalDescription("Assign vulnerability to users for treatment")
-				->modal();
-	}
+    public function assignAction()
+    {
+        return Action::make('assign')
+            ->label('Assign to')
+            ->modalHeading('Assign vulnerability to')
+            ->modalDescription("Assign vulnerability to users for treatment")
+            ->icon('heroicon-o-plus')
+            ->size("xs")
+            ->model(Assignment::class)
+            ->form([
+                Select::make('user_id')
+                    ->label('User')
+                    ->native(false)
+                    ->required()
+                    ->preload()
+                    ->searchable()
+                    ->hint('Select a user')
+                    ->options(fn () => User::where('supervisor_id', Auth::user()->id)->get()->pluck('name', 'id'))
+            ])
+            ->action(function ($data, $arguments) {
+                Assignment::create([
+                    'user_id' => $data['user_id'],
+                    'scan_result_id' => $arguments['result']['id'],
+                    'admin_id' => Auth::user()->id,
+                    'status' => 'pending'
+                ]);
 
-	public function scanAction(): Action
-	{
-		return Action::make('scan')
-			->label('New scan')
-			->form([
-				TextInput::make('user_id')
-					->default(Auth::user()->id)
-					->hidden(),
+                Notification::make('assigned')->success()->title("Vulnerability assigned to User #id {$data['user_id']}")->send();
+            })
+            ->modalWidth("md");
+    }
+
+    public function scanAction(): Action
+    {
+        return Action::make('scan')
+            ->label('New scan')
+            ->form([
+                TextInput::make('user_id')
+                    ->default(Auth::user()->id)
+                    ->hidden(),
 //				TextInput::make('Include files'),
 //				TextInput::make('Exclude files'),
-				Select::make('language')
-					->label('Programming language')
-					->required()
-					->native(false)
-					->options([
-						'ai' => 'Let AI decide',
-						'node' => 'Node.js',
-						'laravel' => 'Laravel',
-						'php' => 'PHP',
-						'jee' => 'JavaEE',
-						'python' => 'Python'
-					]),
-				Select::make('site_id')
-					->label("Website")
-					->options(Auth::user()->sites()->pluck('domain', 'id'))
-					->native(false)
-					->placeholder("Select a website")
-					->searchingMessage("Searching websites")
-					->required()
-					->preload()
-					->searchable()
-			])
-			->modalSubmitActionLabel("Start scan")
-			->color('gray')
-			->modal()
-			->action(function ($data) {
-				$data['user_id'] = Auth::user()->id;
-				$scan = CodeScan::create($data);
-				$scan->save();
-				$this->scans = Auth::user()->code_scans()->get();
-				$site = Site::find($data['site_id']);
-				CodeScanJob::dispatch($site, $scan);
-			})
-			->model(User::class)
-			->modalWidth('lg');
-	}
+                Select::make('language')
+                    ->label('Programming language')
+                    ->required()
+                    ->native(false)
+                    ->options([
+                        'ai' => 'Let AI decide',
+                        'node' => 'Node.js',
+                        'laravel' => 'Laravel',
+                        'php' => 'PHP',
+                        'jee' => 'JavaEE',
+                        'python' => 'Python'
+                    ]),
+                Select::make('site_id')
+                    ->label("Website")
+                    ->options(Auth::user()->sites()->pluck('domain', 'id'))
+                    ->native(false)
+                    ->placeholder("Select a website")
+                    ->searchingMessage("Searching websites")
+                    ->required()
+                    ->preload()
+                    ->searchable()
+            ])
+            ->modalSubmitActionLabel("Start scan")
+            ->color('gray')
+            ->modal()
+            ->action(function ($data) {
+                $data['user_id'] = Auth::user()->id;
+                $scan = CodeScan::create($data);
+                $scan->save();
+                $this->scans = Auth::user()->code_scans()->get();
+                $site = Site::find($data['site_id']);
+                CodeScanJob::dispatch($site, $scan);
+            })
+            ->model(User::class)
+            ->modalWidth('lg');
+    }
 
-	/**
-	 * @return string|null
-	 */
-	public static function getNavigationLabel(): string
-	{
-		return "AI Code Scanner";
-	}
+    /**
+     * @return string|null
+     */
+    public static function getNavigationLabel(): string
+    {
+        return "AI Code Scanner";
+    }
 
-	public function selectScan(CodeScan $scan)
-	{
-		$this->selected_scan = $scan;
-	}
+    public function selectScan(CodeScan $scan)
+    {
+        $this->selected_scan = $scan;
+    }
 
-	public function trashScan(CodeScan $scan): void
-	{
-		$scan->delete();
-		$this->scans = Auth::user()->code_scans()->get();
-		$this->selected_scan = null;
-	}
+    public function trashScan(CodeScan $scan): void
+    {
+        $scan->delete();
+        $this->scans = Auth::user()->code_scans()->get();
+        $this->selected_scan = null;
+    }
 
-	public static function canAccess(): bool
-	{
-		return Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Super Admin'); // TODO: Change the autogenerated stub
-	}
+    public static function canAccess(): bool
+    {
+        return Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Super Admin'); // TODO: Change the autogenerated stub
+    }
 
 }

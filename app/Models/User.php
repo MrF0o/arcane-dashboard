@@ -7,6 +7,7 @@ use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -91,12 +92,13 @@ class User extends Authenticatable
 		});
 	}
 
-	public function subscriptions(): HasMany
-	{
-		return $this->hasMany(Subscription::class);
+	public function subscriptions(): HasOne
+    {
+		return $this->hasOne(Subscription::class);
 	}
 
-	public function subscribed() {
+	public function subscribed(): bool
+    {
 		return !$this->subscriptions()->get()->isEmpty() || $this->isSuperAdmin() || $this->hasRole('User');
 	}
 }

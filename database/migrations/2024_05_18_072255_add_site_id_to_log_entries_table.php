@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('log_entries', function (Blueprint $table) {
-            $table->foreignId('site_id')->nullable()->references('id')->on("sites");
+            $table->foreignId('site_id')->nullable()->references('id')->on("sites")->onDelete('cascade');
         });
     }
 
